@@ -13,10 +13,20 @@
 
 <body>
     <section class="container">
+        <h1>Trivia Game</h1>
+
+        <article class="instructions">
+            <p>There is a series of questions that you will be asked and have to answer
+                correctly in order to get the best score.</p>
+            <p>press start to begin this horribly unfair trivia game</p>
+
+        </article>
+
+        <article class="timer">
+            0
+        </article>
+
         <article class="row ">
-            <h1>Trivia Game</h1>
-            <p class="instruction">There is a series of questions that you will be asked and have to answer correctly in order to get the best score.</p>
-            <p class="instruction">press start to begin this horribly unfair trivia game</p>
             <div class="col col-md-6">
 
                 <article class="row questions">
@@ -34,10 +44,12 @@
             </div>
         </article>
 
-        <article class="row start">
+        <article class="row buttons">
+
+            <button id="start">start</button>
 
         </article>
-        
+
     </section>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -47,6 +59,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+        <script src="assets/javascript/trivia.js"></script>
 
 </body>
 
