@@ -64,6 +64,9 @@ $(document).ready(function () {
     function timer() {
         time--;
         $(".timer").text(time);
+        if (time === 0) {     
+            time = 45;    
+        }
     }
 
     // start of the trivia game
@@ -78,12 +81,13 @@ $(document).ready(function () {
 
         // creates the buttons with the choices associated with the question
         let triviaAns = trivia[triviaI].answers;
-        
-        triviaAns.forEach(function () {
 
-            let choiceBtn = $("<button>")
-            
-            choiceBtn.addClass("choices");
+        triviaAns.forEach(function (choice) {
+
+            let choiceBtn = $("<button>").addClass("choices").text(choice);
+
+            // should append the buttons for the use's choice
+            $(".answers").append(choiceBtn);
 
         });
 
@@ -97,8 +101,7 @@ $(document).ready(function () {
         // appends the question for user to see
         $(".questions").append(TriviaQuest);
 
-        // should append the buttons for the use's choice
-        $(".answers").append(triviaAns);
+
 
         $(".buttons").empty();
     }
