@@ -13,45 +13,46 @@ $(document).ready(function () {
         },
         {
             quest: "Beta leader",
-            answers: {
-                ans1: "John",
-                ans2: "Rose",
-                ans3: "Jade",
-                ans4: "Dave"
-            }
+            answers: [
+                "John",
+                "Rose",
+                "Jade",
+                "Dave"
+            ]
         },
         {
             quest: "Alpha Leader",
-            answers: {
-                ans1: "Jane",
-                ans2: "Dirk",
-                ans3: "Roxy",
-                ans4: "Jake"
-            }
+            answers: [
+                "Jane",
+                "Dirk",
+                "Roxy",
+                "Jake"
+            ]
         },
         {
             quest: "midnight crew leader",
-            answers: {
-                ans1: "daimonds droog",
-                ans2: "hearts boxcar",
-                ans3: "clubs deuce",
-                ans4: "spades slick"
-            }
+            answers: [
+                "daimonds droog",
+                "hearts boxcar",
+                "clubs deuce",
+                "spades slick"
+            ]
         },
         {
             quest: "life meaning",
-            answers: {
-                ans1: "42",
-                ans2: "self-happiness",
-                ans3: "respect from peers",
-                ans4: "alpha timeline"
-            }
+            answers: [
+                "42",
+                "self-happiness",
+                "respect from peers",
+                "alpha timeline"
+            ]
         }];
 
-    // answers to the questions in order    
-    const trivAns = ["assistant", "John", "Dirk", "spades slick", "42"];
 
-    $("#start").on("click", startTriv);
+
+
+    $("#start").on("click", startTriv);// starts quiz when user clicks start button
+
 
     // trivia index
     let triviaI = 0;
@@ -60,51 +61,60 @@ $(document).ready(function () {
     let time = 45;
     let interValid;
 
+
     // timer function
     function timer() {
         time--;
         $(".timer").text(time);
-        if (time === 0) {     
-            time = 45;    
+        //if timer hits 0, will work on later
+        if (time === 0) {
+            time = 45;
         }
+    }
+
+    // when a choice is made
+    function nextQuest() {
+        triviaI++;
+
+        $(".questions").empty();
+        $(".answers").empty();
+
+        startTriv();
+
+        
     }
 
     // start of the trivia game
     function startTriv() {
 
-        // sets timer for question
-        clearInterval(interValid);
-        interValid = setInterval(timer, 1000);
+        // creates the buttons with the choices associated with the question
+        let triviaAns = trivia[triviaI].answers;
 
         //creates h1 with the question in the correct box
         let TriviaQuest = $("<h3>").text(trivia[triviaI].quest);
 
-        // creates the buttons with the choices associated with the question
-        let triviaAns = trivia[triviaI].answers;
+        // sets timer for question
+        clearInterval(interValid);
+        interValid = setInterval(timer, 1000);
 
         triviaAns.forEach(function (choice) {
 
-            let choiceBtn = $("<button>").addClass("choices").text(choice);
+            let choiceBtn = $("<button>").addClass("choices").text(choice).attr("Charac", choice);
 
             // should append the buttons for the use's choice
             $(".answers").append(choiceBtn);
 
         });
 
-        // if the timer hits 0 function, will work on later
-        if (time === 0) {
-            clearInterval(interValid);
-            time = 45;
-            timer();
-        }
-
         // appends the question for user to see
         $(".questions").append(TriviaQuest);
 
-
-
         $(".buttons").empty();
+
+        $(".choices").on("click", nextQuest);
     }
 
-    console.log(trivia[triviaI].answers);
+
+
+
 });
