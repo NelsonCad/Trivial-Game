@@ -48,19 +48,17 @@ $(document).ready(function () {
             ]
         }];
 
-
-
-
-    $("#start").on("click", startTriv);// starts quiz when user clicks start button
-
+    // starts quiz when user clicks start button
+    $("#start").on("click", startTriv);
 
     // trivia index
     let triviaI = 0;
 
+    let score = 0;
+
     //time set per question
     let time = 45;
     let interValid;
-
 
     // timer function
     function timer() {
@@ -72,16 +70,40 @@ $(document).ready(function () {
         }
     }
 
-    // when a choice is made
-    function nextQuest() {
-        triviaI++;
-
+    function endResults() {
+        // clears question and answer columns for 
         $(".questions").empty();
         $(".answers").empty();
 
+        clearInterval(interValid);
+        time = 45;
+        triviaI = 0;
+
+        $(".screen").append("<h4>").text("you got " + score + " out of " + trivia.length);
+        
+
+    }
+
+    // when a choice is made
+    function nextQuest() {
+        // adds to index so that next question is brought up
+        triviaI++;
+
+        if (triviaI === trivia.length) {
+            endResults();
+            return;
+        }
+
+        // clears question and answer columns for re-use
+        $(".questions").empty();
+        $(".answers").empty();
+
+        //resets time
+        time = 45;
+        // starts the next question
         startTriv();
 
-        
+
     }
 
     // start of the trivia game
@@ -97,6 +119,7 @@ $(document).ready(function () {
         clearInterval(interValid);
         interValid = setInterval(timer, 1000);
 
+        // actually generates choices as buttons
         triviaAns.forEach(function (choice) {
 
             let choiceBtn = $("<button>").addClass("choices").text(choice).attr("Charac", choice);
@@ -108,10 +131,13 @@ $(document).ready(function () {
 
         // appends the question for user to see
         $(".questions").append(TriviaQuest);
-
+        // clears the buttons row, so user can't "start" multiple times
         $(".buttons").empty();
-
+        // moves to next question
         $(".choices").on("click", nextQuest);
+        //empties instructions
+        $(".screen").empty();
+
     }
 
 
