@@ -79,9 +79,12 @@ $(document).ready(function () {
         time = 45;
         triviaI = 0;
 
+        // shows the user's score
         $(".screen").append("<h4>").text("you got " + score + " out of " + trivia.length);
-        
 
+        let Restart = $("<button>").attr("id", "start").text("Restart");
+        $(".buttons").append(Restart);
+        $("#start").on("click", startTriv);
     }
 
     // when a choice is made
@@ -139,8 +142,4 @@ $(document).ready(function () {
         $(".screen").empty();
 
     }
-
-
-
-
 });
