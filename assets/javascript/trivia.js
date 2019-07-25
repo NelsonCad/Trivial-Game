@@ -4,12 +4,12 @@ $(document).ready(function () {
     const trivia = [
         {
             quest: "radarada",
-            answers: {
-                ans1: "chef",
-                ans2: "apprentice",
-                ans3: "assistant",
-                ans4: "nusiance"
-            }
+            answers: [
+                "Chef",
+                "apprentice",
+                "assistant",
+                "nusiance"
+            ]
         },
         {
             quest: "Beta leader",
@@ -48,15 +48,19 @@ $(document).ready(function () {
             }
         }];
 
+    // answers to the questions in order    
     const trivAns = ["assistant", "John", "Dirk", "spades slick", "42"];
 
     $("#start").on("click", startTriv);
+
+    // trivia index
     let triviaI = 0;
 
     //time set per question
     let time = 45;
     let interValid;
 
+    // timer function
     function timer() {
         time--;
         $(".timer").text(time);
@@ -72,15 +76,32 @@ $(document).ready(function () {
         //creates h1 with the question in the correct box
         let TriviaQuest = $("<h3>").text(trivia[triviaI].quest);
 
+        // creates the buttons with the choices associated with the question
+        let triviaAns = trivia[triviaI].answers;
         
+        triviaAns.forEach(function () {
 
-        
-        
+            let choiceBtn = $("<button>")
+            
+            choiceBtn.addClass("choices");
+
+        });
+
+        // if the timer hits 0 function, will work on later
+        if (time === 0) {
+            clearInterval(interValid);
+            time = 45;
+            timer();
+        }
+
+        // appends the question for user to see
         $(".questions").append(TriviaQuest);
 
+        // should append the buttons for the use's choice
+        $(".answers").append(triviaAns);
 
-
+        $(".buttons").empty();
     }
 
-
+    console.log(trivia[triviaI].answers);
 });
