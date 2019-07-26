@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     const trivia = [
         {
-            quest: "radarada",
+            quest: "what is the title of the guy that says 'Rada Rada' in Chowder?",
             answers: [
                 "Chef",
                 "apprentice",
@@ -12,7 +12,7 @@ $(document).ready(function () {
             ]
         },
         {
-            quest: "Beta leader",
+            quest: "Who is the leader of the Beta Kids in Homestuck?",
             answers: [
                 "John",
                 "Rose",
@@ -21,7 +21,7 @@ $(document).ready(function () {
             ]
         },
         {
-            quest: "Alpha Leader",
+            quest: "Who is the leader of the Alpha Kids in Homestuck?",
             answers: [
                 "Jane",
                 "Dirk",
@@ -30,21 +30,30 @@ $(document).ready(function () {
             ]
         },
         {
-            quest: "midnight crew leader",
+            quest: "Who is the stabby douchebag in the Midnight Crew from Homestuck?",
             answers: [
-                "daimonds droog",
-                "hearts boxcar",
-                "clubs deuce",
-                "spades slick"
+                "Daimonds Droog",
+                "Hearts Boxcar",
+                "Clubs Deuce",
+                "Spades Slick"
             ]
         },
         {
-            quest: "life meaning",
+            quest: "What is the meaning of life?",
             answers: [
                 "42",
-                "self-happiness",
-                "respect from peers",
-                "alpha timeline"
+                "Self-happiness",
+                "Respect from peers",
+                "Alpha Timeline"
+            ]
+        },
+        {
+            quest: "What is the name if the Frigate that the Master Cheif started in at the beginning of Halo: Combat Evolved?",
+            answers: [
+                "Infinity",
+                "Forward unto Dawn",
+                "Pillar of Autumn",
+                "High Charity"
             ]
         }];
 
@@ -53,6 +62,7 @@ $(document).ready(function () {
 
     // trivia index
     let triviaI = 0;
+    // let trivIndAns = trivia[triviaI].answers;
 
     let score = 0;
 
@@ -63,10 +73,10 @@ $(document).ready(function () {
     // timer function
     function timer() {
         time--;
-        $(".timer").text(time);
+        $(".timer").text("time left: " + time);
         //if timer hits 0, will work on later
         if (time === 0) {
-            time = 45;
+            nextQuest();
         }
     }
 
@@ -82,21 +92,28 @@ $(document).ready(function () {
         // shows the user's score
         $(".screen").append("<h4>").text("you got " + score + " out of " + trivia.length);
 
-        let Restart = $("<button>").attr("id", "start").text("Restart");
+        let Restart = $("<button>").attr("id", "restart").text("Restart");
         $(".buttons").append(Restart);
-        $("#start").on("click", startTriv);
+        $("#restart").on("click", function () {
+            score = 0;
+            startTriv();
+        });
     }
 
     // when a choice is made
     function nextQuest() {
+
         // adds to index so that next question is brought up
         triviaI++;
+
+        if ($(this).attr("Charac") === "assistant" || $(this).attr("Charac") === "John" || $(this).attr("Charac") === "Dirk" || $(this).attr("Charac") === "Spades Slick" || $(this).attr("Charac") === "42" || $(this).attr("Charac") === "Pillar of Autumn") {
+            score++;
+        }
 
         if (triviaI === trivia.length) {
             endResults();
             return;
         }
-
         // clears question and answer columns for re-use
         $(".questions").empty();
         $(".answers").empty();
@@ -105,8 +122,6 @@ $(document).ready(function () {
         time = 45;
         // starts the next question
         startTriv();
-
-
     }
 
     // start of the trivia game
@@ -132,14 +147,17 @@ $(document).ready(function () {
 
         });
 
+
+
         // appends the question for user to see
         $(".questions").append(TriviaQuest);
         // clears the buttons row, so user can't "start" multiple times
         $(".buttons").empty();
-        // moves to next question
-        $(".choices").on("click", nextQuest);
         //empties instructions
         $(".screen").empty();
+        // moves to next question
+        $(".choices").click(nextQuest);
+
 
     }
 });
