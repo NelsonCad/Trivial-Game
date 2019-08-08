@@ -21,7 +21,7 @@ $(document).ready(function () {
             ]
         },
         {
-            quest: "Who is the leader of the Alpha Kids in Homestuck?",
+            quest: "Who is the Hero of Heart out of the Alpha kids in Homestuck?",
             answers: [
                 "Jane",
                 "Dirk",
